@@ -8,7 +8,7 @@ Screen_witdh = 1000
 Screen_height = 650
 
 screen = pygame.display.set_mode((Screen_witdh, Screen_height))
-pygame.display.set_caption("C11 fighting game")
+pygame.display.set_caption("Block fighting game")
 
 #set framerate
 clock = pygame.time.Clock()
