@@ -37,6 +37,11 @@ def draw_text(text, font, text_col, x, y):
   font = pygame.font.Font('freesansbold.ttf', 32)
   img = font.render(text, True, text_col)
   screen.blit(img, (x, y))
+def draw_FPS(text, font, text_col, x, y):
+    font = pygame.font.Font('freesansbold.ttf', 16)
+    img = font.render(text, True, text_col)
+    screen.blit(img, (x, y))
+
 
 #health bar
 def draw_health_bar(health, x ,y):
@@ -44,6 +49,14 @@ def draw_health_bar(health, x ,y):
     pygame.draw.rect(screen, White, (x - 2, y - 2, 404, 34))
     pygame.draw.rect(screen, Red, (x, y, 400, 30))
     pygame.draw.rect(screen, Green, (x, y, 400*ratio, 30))
+
+def draw_cooldown(remain, x, y):
+    ratio = remain/6000
+    if ratio >= 1:
+        ratio = 1
+    pygame.draw.rect(screen, White, (x - 2, y - 2, 34, 34))
+    pygame.draw.rect(screen, Red, (x, y, 30, 30))
+    pygame.draw.rect(screen, Green, (x, y, 30, 30*ratio))
 
 #create instances of fighter
 Fighter1 = Thanh(200, 310)
@@ -55,11 +68,15 @@ while running:
 
     clock.tick(FPS)
     
+
     background()
     draw_health_bar(Fighter1.health, 20, 30)
     draw_health_bar(Fighter2.health, 580, 30)
+    draw_cooldown(Fighter1.now - Fighter1.last, 110, 70)
+    draw_cooldown(Fighter2.now - Fighter2.last, 670, 70)
     draw_text("P1: " + str(score[0]), 0, Red, 20, 70)
     draw_text("P2: " + str(score[1]), 0, Red, 580, 70)
+    draw_FPS("FPS: " + str(FPS), 0, White, 20, 10)
 
       #update countdown
     if intro_count <= 0:
